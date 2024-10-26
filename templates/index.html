@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="upload-container">
+    {% if 'oauth_token' in session %}
+    <h2 class="mb-4">Upload User CSV File</h2>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">CSV Format Requirements</h5>
+        </div>
+        <div class="card-body">
+            <p>Required columns:</p>
+            <ul>
+                <li><code>id</code> - Brivo user ID</li>
+                <li><code>firstName</code> - User's first name</li>
+                <li><code>lastName</code> - User's last name</li>
+            </ul>
+
+            <p>Optional columns:</p>
+            <ul>
+                <li><code>middleName</code> - User's middle name</li>
+                <li><code>externalId</code> - External identifier</li>
+                <li><code>pin</code> - User's PIN</li>
+                <li><code>effectiveFrom</code> - Start date (YYYY-MM-DD)</li>
+                <li><code>effectiveTo</code> - End date (YYYY-MM-DD)</li>
+                <li><code>bleTwoFactorExempt</code> - true/false</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Upload File</h5>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="file" class="form-label">Select CSV file</label>
+                    <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload and Process</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Example CSV Format</h5>
+        </div>
+        <div class="card-body">
+            <pre class="bg-light p-3 rounded mb-0"><code>id,firstName,lastName,middleName,externalId,pin,effectiveFrom,effectiveTo,bleTwoFactorExempt
+442211,John,Smith,Robert,EMP123,1234,2024-01-01,2024-12-31,true
+442212,Jane,Doe,,EMP124,5678,2024-02-01,2024-12-31,false</code></pre>
+        </div>
+    </div>
+
+    {% if test_mode %}
+    <div class="alert alert-info mt-4">
+        <strong>Test Mode:</strong> Running with mock Brivo API server
+    </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+    </div>
+    {% else %}
+    <div class="text-center">
+        <h2>Brivo User Bulk Update Tool</h2>
+        <p class="lead">Please log in to continue</p>
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Login</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

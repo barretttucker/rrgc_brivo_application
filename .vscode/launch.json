@@ -1,0 +1,83 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Main App (Production)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app.py",
+            "env": {
+                "FLASK_APP": "app.py",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [],
+            "jinja": true,
+            "justMyCode": true,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Main App (Test Mode)",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app.py",
+            "env": {
+                "FLASK_APP": "app.py",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [
+                "--test"
+            ],
+            "jinja": true,
+            "justMyCode": true,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Mock Brivo API",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/mock_brivo_api.py",
+            "env": {
+                "FLASK_APP": "mock_brivo_api.py",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [],
+            "jinja": true,
+            "justMyCode": true,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "🚀 Launch Both (Test Mode)",
+            "type": "python",
+            "request": "launch",
+            "compounds": [
+                "Mock Brivo API",
+                "Main App (Test Mode)"
+            ],
+            "presentations": [
+                {
+                    "hidden": false,
+                    "group": "Mock API",
+                    "order": 1
+                },
+                {
+                    "hidden": false,
+                    "group": "Main App",
+                    "order": 2
+                }
+            ]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "🚀 Launch Both (Test Mode)",
+            "configurations": [
+                "Mock Brivo API",
+                "Main App (Test Mode)"
+            ],
+            "stopAll": true
+        }
+    ]
+}
