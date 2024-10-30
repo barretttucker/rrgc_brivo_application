@@ -39,6 +39,9 @@ app = Flask(__name__, template_folder='templates')
 if args.test:
     logger.info("Running in TEST mode")
     from config import TestConfig as CurrentConfig
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    os.environ['REQUESTS_CA_BUNDLE'] = ''
+    os.environ['CURL_CA_BUNDLE'] = ''
 else:
     logger.info("Running in PRODUCTION mode")
     from config import ProductionConfig as CurrentConfig
@@ -263,4 +266,8 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(
+        host='localhost',
+        port=5000,
+        debug=True
+    )

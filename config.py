@@ -20,5 +20,6 @@ class TestConfig(Config):
     OAUTH2_AUTH_URL = "https://localhost:5001/oauth/authorize"
     OAUTH2_TOKEN_URL = "https://localhost:5001/oauth/token"
     API_BASE_URL = "https://localhost:5001/v1/api"
-    OAUTHLIB_INSECURE_TRANSPORT = "1"  # Allow OAuth2 over HTTP in test mode
-    USE_HTTPS = False  # Use HTTP for the main app in test mode
+    OAUTHLIB_INSECURE_TRANSPORT = "1"
+    USE_HTTPS = False  # Keep main app on HTTP
+    SSL_VERIFY = False  # Don't verify SSL in test mode
